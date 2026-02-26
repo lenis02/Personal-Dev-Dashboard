@@ -1,0 +1,45 @@
+<div class="p-6 max-w-4xl mx-auto space-y-8">
+  <section
+    class="bg-slate-900 text-white p-8 rounded-3xl shadow-xl border border-indigo-500/30"
+  >
+    <div class="flex justify-between items-center">
+      <div>
+        <p class="text-indigo-400 font-bold mb-1">현재 등급</p>
+        <h2 class="text-4xl font-black italic">{{ userTier() }}</h2>
+        <p class="mt-4 text-sm text-slate-400">
+          다음 등급까지
+          <span class="text-white font-bold">{{ remainingSbd() }}kg</span>
+          남았습니다.
+        </p>
+      </div>
+      <app-tier-badge [tier]="userTier()"></app-tier-badge>
+    </div>
+
+    <div class="grid grid-cols-3 gap-4 mt-8">
+      <div class="bg-slate-800 p-4 rounded-xl text-center">
+        <p class="text-xs text-slate-400">SQUAT</p>
+        <p class="text-2xl font-bold">{{ user().squat }}kg</p>
+      </div>
+      <div class="bg-slate-800 p-4 rounded-xl text-center">
+        <p class="text-xs text-slate-400">BENCH</p>
+        <p class="text-2xl font-bold">{{ user().bench }}kg</p>
+      </div>
+      <div class="bg-slate-800 p-4 rounded-xl text-center">
+        <p class="text-xs text-slate-400">DEAD</p>
+        <p class="text-2xl font-bold">{{ user().deadlift }}kg</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white p-6 rounded-3xl shadow-md border border-slate-100">
+    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+      <span class="p-2 bg-indigo-100 rounded-lg text-indigo-600">📈</span>
+      주간 성장 추이
+    </h3>
+    <div
+      class="h-64 bg-slate-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-slate-200"
+    >
+      <app-sbd-chart></app-sbd-chart>
+    </div>
+  </section>
+</div>

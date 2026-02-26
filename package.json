@@ -68,9 +68,12 @@
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
     "@prisma/client": "^7.4.1",
+    "@tailwindcss/postcss": "^4.2.1",
     "axios": "^1.6.0",
+    "postcss": "^8.5.6",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
+    "tailwindcss": "^4.0.0",
     "zone.js": "~0.15.0"
   }
 }
