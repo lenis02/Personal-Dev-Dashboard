@@ -8,16 +8,25 @@ import {
 } from 'typeorm';
 
 @Entity()
-@Unique(['provider', 'socialId'])
+@Unique(['provider', 'socialId']) // 중복 확인
 export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column({ nullable: true })
-  email!: string;
+  email?: string;
 
-  @Column()
+  @Column({ unique: true })
   name!: string;
+
+  @Column({ nullable: true })
+  height?: number;
+
+  @Column({ nullable: true })
+  weight?: number;
+
+  @Column({ nullable: true })
+  SBD?: number;
 
   @Column()
   provider!: string;

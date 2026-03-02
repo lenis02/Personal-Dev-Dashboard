@@ -1,8 +1,9 @@
-import { User } from './user.model'
+import { User } from './user.model';
 
 export enum PostCategory {
   DEBATE = 'DEBATE',
-  WORKOUT = 'WORKOUT'
+  WORKOUT = 'WORKOUT',
+  NOTICE = 'NOTICE',
 }
 
 export interface Post {
