@@ -1,5 +1,5 @@
-import { Poll } from 'server/src/poll/entities/poll.entity';
-import { User } from 'server/src/user/entities/user.entity';
+import { Poll } from '../../poll/entities/poll.entity';
+import { User } from '../../user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,

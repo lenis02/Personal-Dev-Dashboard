@@ -8,5 +8,6 @@ import { Poll } from './entities/poll.entity';
   imports: [TypeOrmModule.forFeature([Poll])],
   controllers: [PollController],
   providers: [PollService],
+  exports: [PollService],
 })
 export class PollModule {}

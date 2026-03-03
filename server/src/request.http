@@ -40,3 +40,19 @@ Content-Type: application/json
 
 ### 5. 게시글 삭제
 DELETE http://localhost:3000/api/posts/1
+
+
+### 토론 게시글 및 투표 생성 테스트
+POST http://localhost:3000/api/posts
+Content-Type: application/json
+
+{
+  "category": "DEBATE",
+  "title": "탕수육 부먹 vs 찍먹",
+  "content": "여러분의 선택은?",
+  "authorId": 4,
+  "pollData": {
+    "title": "부먹인가 찍먹인가",
+    "options": ["부먹", "찍먹"]
+  }
+}

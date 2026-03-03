@@ -4,6 +4,11 @@ import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostModule } from '../post/post.module';
+import { PollModule } from '../poll/poll.module';
+import { PolloptionModule } from '../polloption/polloption.module';
+import { VoteModule } from '../vote/vote.module';
+import { Post } from '../post/entity/post.entity';
+import { Poll, PollOption, Vote } from '../poll/entities/poll.entity';
 
 @Module({
   imports: [
@@ -14,7 +19,8 @@ import { PostModule } from '../post/post.module';
       username: process.env['DB_USER'] ?? 'postgres',
       password: process.env['DB_PASSWORD'] ?? 'password',
       database: process.env['DB_NAME'] ?? 'semi_app',
-      autoLoadEntities: true,
+      autoLoadEntities: false,
+      entities: [Post, Poll, PollOption, Vote],
       // entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: true,
@@ -25,6 +31,9 @@ import { PostModule } from '../post/post.module';
     }),
     UserModule,
     AuthModule,
+    VoteModule,
+    PolloptionModule,
+    PollModule,
     PostModule,
   ],
 })

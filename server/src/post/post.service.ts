@@ -1,14 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Post } from './entity/post.entity';
+import { Post, PostCategory } from './entity/post.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
+import { PollService } from '../poll/poll.service';
 
 @Injectable()
 export class PostService {
   constructor(
     @InjectRepository(Post)
-    private postRepository: Repository<Post>
+    private postRepository: Repository<Post>,
+    private pollService: PollService,
+    private dataSource: DataSource
   ) {}
 
   // 게시글 조회
@@ -25,11 +28,36 @@ export class PostService {
     createPostDto: CreatePostDto,
     authorId: number
   ): Promise<Post> {
-    const newPost = this.postRepository.create({
-      ...createPostDto,
-      authorId,
-    });
-    return await this.postRepository.save(newPost);
+    // 트랜젝션 시작
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const newPost = this.postRepository.create({
+        ...createPostDto,
+        authorId,
+      });
+      const savedPost = await queryRunner.manager.save(newPost);
+
+      if (
+        createPostDto.category === PostCategory.DEBATE &&
+        createPostDto.pollData
+      ) {
+        await this.pollService.createPoll(
+          savedPost.id,
+          createPostDto.pollData,
+          queryRunner.manager
+        );
+      }
+      await queryRunner.commitTransaction();
+      return savedPost;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   // 게시글 수정
@@ -57,7 +85,7 @@ export class PostService {
   async getPostById(id: number): Promise<Post> {
     const post = await this.postRepository.findOne({
       where: { id },
-      relations: ['author'],
+      relations: ['author', 'poll', 'poll.options'],
     });
 
     if (!post) {
