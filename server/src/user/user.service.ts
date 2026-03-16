@@ -1,9 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UpdateUserSbdDto } from './dto/update-user.dto';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -12,7 +10,7 @@ export class UserService {
     private userRepository: Repository<User>
   ) {}
 
-  // 소셜id 기반 유저 찾기
+  // 소셜아이디 생성 or 반환
   async findBySocialIdOrSave(
     name: string,
     socialId: string,
@@ -23,46 +21,51 @@ export class UserService {
     });
 
     if (!user) {
-      user = await this.userRepository.save(
-        this.userRepository.create({
-          name,
-          socialId,
-          provider,
-        })
-      );
+      user = this.userRepository.create({
+        name,
+        socialId,
+        provider,
+      });
+      await this.userRepository.save(user);
     }
+
     return user;
   }
 
-  // 리프레쉬 토큰 업데이트
+  // 리프레시 토큰 업데이트
   async updateRefreshToken(
     socialId: string,
     provider: string,
-    refreshToken: string | null
+    refreshToken: string
   ): Promise<void> {
     await this.userRepository.update({ socialId, provider }, { refreshToken });
   }
 
-  // id 기반 유저 찾기
+  async clearRefreshToken(userId: number): Promise<void> {
+    await this.userRepository.update({ id: userId }, { refreshToken: null });
+  }
+
   async findById(id: number): Promise<User | null> {
-    return this.userRepository.findOne({
-      where: { id },
-    });
+    return await this.userRepository.findOne({ where: { id } });
   }
 
-  // 키, 몸무게 및 SBD 합 업데이트
-  async updateSBD(
-    id: number,
-    updateUserSbdDto: UpdateUserSbdDto
-  ): Promise<User> {
-    const user = await this.findById(id);
+  // create(createUserDto: CreateUserDto) {
+  //   return 'This action adds a new user';
+  // }
 
-    if (!user) {
-      throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
-    }
+  // findAll() {
+  //   return `This action returns all user`;
+  // }
 
-    Object.assign(user, updateUserSbdDto);
+  // findOne(id: number) {
+  //   return `This action returns a #${id} user`;
+  // }
 
-    return await this.userRepository.save(user);
-  }
+  // update(id: number, updateUserDto: UpdateUserDto) {
+  //   return `This action updates a #${id} user`;
+  // }
+
+  // remove(id: number) {
+  //   return `This action removes a #${id} user`;
+  // }
 }

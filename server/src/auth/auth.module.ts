@@ -20,5 +20,6 @@ import { KakaoStrategy } from './strategies/kakao.strategy';
     JwtAccessStrategy,
     JwtRefreshStrategy,
   ],
+  exports: [JwtAccessStrategy, JwtRefreshStrategy],
 })
 export class AuthModule {}

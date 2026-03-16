@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { GoogleAuthGuard, JwtRefreshGuard } from './guard/google.guard';
 import { User } from '../user/entities/user.entity';
 import { KakaoAuthGuard } from './guard/kakao.guard';
+import { JwtAccessGuard } from './guard/jwt-access.guard';
 
 interface JwtPayload {
   sub: number;
@@ -54,5 +55,13 @@ export class AuthController {
     }
 
     return this.authService.refreshToken(user.sub, refreshToken);
+  }
+
+  @UseGuards(JwtAccessGuard)
+  @Post('logout')
+  async logout(@Req() req: Request) {
+    const user = req.user as JwtPayload;
+
+    return this.authService.logout(user.sub);
   }
 }

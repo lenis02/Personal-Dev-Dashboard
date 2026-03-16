@@ -3,41 +3,50 @@ import {
   Get,
   Post,
   Body,
-  Param,
-  ParseIntPipe,
   Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
+import type { Request } from 'express';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserSbdDto } from './dto/update-user.dto';
+import { JwtAccessGuard } from '../auth/guard/jwt-access.guard';
 
-@Controller('users')
+interface JwtPayload {
+  sub: number;
+  socialId: string;
+  provider: string;
+}
+
+@Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // 로그인 or 가입
-  @Post('login')
-  async login(@Body() createUserDto: CreateUserDto) {
-    const { name, socialId, provider } = createUserDto;
-    return await this.userService.findBySocialIdOrSave(
-      name,
-      socialId,
-      provider
-    );
-  }
+  
 
-  // 특정 유저 조회
-  @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    return await this.userService.findById(id);
-  }
+  // @Post()
+  // create(@Body() createUserDto: CreateUserDto) {
+  //   return this.userService.create(createUserDto);
+  // }
 
-  // 조회한 유저 기본 정보 업데이트
-  @Patch(':id/sbd')
-  async updateSbd(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateUserSbdDto: UpdateUserSbdDto
-  ) {
-    return await this.userService.updateSBD(id, updateUserSbdDto);
-  }
+  // @Get()
+  // findAll() {
+  //   return this.userService.findAll();
+  // }
+
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.userService.findOne(+id);
+  // }
+
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  //   return this.userService.update(+id, updateUserDto);
+  // }
+
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.userService.remove(+id);
+  // }
 }

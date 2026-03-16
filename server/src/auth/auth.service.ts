@@ -70,4 +70,9 @@ export class AuthService {
 
     return this.socialLogin(user);
   }
+
+  async logout(userId: number) {
+    await this.userService.clearRefreshToken(userId);
+    return { message: '성공적으로 로그아웃 되었습니다.'};
+  }
 }

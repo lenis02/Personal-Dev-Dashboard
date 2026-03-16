@@ -8,35 +8,6 @@ Content-Type: application/json
   "provider": "kakao"
 }
 
-### 2. SBD 및 신체 정보 업데이트 (ID가 1이라고 가정)
-PATCH http://localhost:3000/api/users/4/sbd
-Content-Type: application/json
-
-{
-  "name": "강력한원영",
-  "height": 180,
-  "weight": 80,
-  "SBD" : 345
-}
-
-### 3. 게시글 추가 (위에서 가입한 유저 ID가 4라면 authorId를 4로)
-POST http://localhost:3000/api/posts
-Content-Type: application/json
-
-{
-  "category": "WORKOUT",
-  "title": "게시글 테스트입니다",
-  "content": "내용은 여기에 작성합니다.",
-  "authorId": 4
-}
-
-### 4. 게시글 수정 (위에서 생성된 게시글 ID가 1이라고 가정)
-PATCH http://localhost:3000/api/posts/1
-Content-Type: application/json
-
-{
-  "title": "수정된 제목입니다."
-}
-
-### 5. 게시글 삭제
-DELETE http://localhost:3000/api/posts/1
+### 2. 로그아웃 
+POST http://localhost:3000/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb2NpYWxJZCI6IjExNzM1MDEwMzc1MDgzMzE5NzkzMCIsInByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjo1LCJpYXQiOjE3NzM2NDY3NDUsImV4cCI6MTc3MzY0NzY0NX0.sqoTybEK7JsrZYWmxJrDOGyN4S_vIs8JrGn-KzbR2pE
