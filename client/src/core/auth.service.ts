@@ -26,6 +26,32 @@ export class AuthService {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
+  private parseJwtPayload(token: string): Record<string, any> | null {
+    try {
+      const base64 = token.split('.')[1];
+      if (!base64) return null;
+      const normalized = base64.replace(/-/g, '+').replace(/_/g, '/');
+      const payload = decodeURIComponent(
+        atob(normalized)
+          .split('')
+          .map((c) => `%${('00' + c.charCodeAt(0).toString(16)).slice(-2)}`)
+          .join('')
+      );
+      return JSON.parse(payload);
+    } catch {
+      return null;
+    }
+  }
+
+  isTokenExpired(token: string): boolean {
+    const payload = this.parseJwtPayload(token);
+    if (!payload || typeof payload['exp'] !== 'number') {
+      return true;
+    }
+    const nowSec = Math.floor(Date.now() / 1000);
+    return payload['exp'] <= nowSec;
+  }
+
   // 로그아웃 (토큰 삭제)
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
@@ -33,6 +59,12 @@ export class AuthService {
 
   // 로그인 상태 확인
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    if (!token) return false;
+    if (this.isTokenExpired(token)) {
+      this.logout();
+      return false;
+    }
+    return true;
   }
 }

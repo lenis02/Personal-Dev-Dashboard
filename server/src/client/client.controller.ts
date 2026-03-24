@@ -34,7 +34,8 @@ export class ClientController {
 
   // 클라이언트 목록 조회
   @Get()
-  findAll(@CurrentUser('sub') userId: number) {
+  findAll(@Req() req: any) {
+    const userId = req.user.sub
     return this.clientService.findAll(userId);
   }
 

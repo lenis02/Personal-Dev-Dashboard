@@ -17,11 +17,13 @@ export class ProjectService {
 
     const newProject = this.projectRepository.create({
       ...projectData,
+      status: 'ONGOING',
       user: { id: userId },
       client: { id: clientId },
     });
 
-    return await this.projectRepository.insert(newProject);
+    await this.projectRepository.insert(newProject);
+    return newProject;
   }
 
   async findAll(userId: number) {

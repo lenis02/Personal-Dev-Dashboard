@@ -20,11 +20,12 @@ export class AuthCallbackComponent implements OnInit {
 
       if (token) {
         this.authService.setToken(token);
-
-        this.router.navigate(['/']);
+        window.location.href = '/';
+        // this.router.navigate(['/']);
       } else {
         alert('로그인에 실패했습니다.');
-        this.router.navigate(['/']);
+        window.location.href = '/';
+        // this.router.navigate(['/']);
       }
     });
   }

@@ -16,18 +16,29 @@ export class TaskService {
   ) {}
 
   // 할 일 생성
-  async create(createTaskDto: CreateTaskDto) {
+  async create(createTaskDto: CreateTaskDto, userId: number) {
     const { projectId, ...taskData } = createTaskDto;
-    const newTask = this.taskRepository.create({
+
+    await this.taskRepository.insert({
       ...taskData,
+      isDone: false,
+      status: 'PENDING',
       project: { id: projectId },
     });
-    return await this.taskRepository.insert(newTask);
+    return { message: '할 일이 성공적으로 생성되었습니다.' };
   }
 
-  // async findAll() {
-  //   return `This action returns all task`;
-  // }
+  async findAll(userId: number, projectId?: number) {
+    const where = projectId
+      ? { project: { id: projectId, user: { id: userId } } }
+      : { project: { user: { id: userId } } };
+
+    return await this.taskRepository.find({
+      where,
+      relations: ['project', 'project.client'],
+      order: { id: 'DESC' },
+    });
+  }
 
   async findOne(id: number, userId: number) {
     const task = await this.taskRepository.findOne({
