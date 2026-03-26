@@ -13,13 +13,11 @@ import { HttpClient } from '@angular/common/http';
         class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
       >
         <div
-          class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition"
+          class="bg-white/90 p-6 shadow-sm border border-gray-100 hover:shadow-md transition"
         >
           <div class="flex justify-between items-start mb-4">
             <h3 class="text-gray-500 text-sm font-semibold">총 클라이언트</h3>
-            <span class="p-2 bg-blue-50 text-blue-500 rounded-lg text-xs"
-              >🤝</span
-            >
+            <span class="p-2 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-600 text-xs">Clients</span>
           </div>
           <p class="text-4xl font-bold text-gray-800">
             {{ dashboardData?.totalClients || 0
@@ -28,13 +26,11 @@ import { HttpClient } from '@angular/common/http';
         </div>
 
         <div
-          class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition"
+          class="bg-white/90 p-6 shadow-sm border border-gray-100 hover:shadow-md transition"
         >
           <div class="flex justify-between items-start mb-4">
             <h3 class="text-gray-500 text-sm font-semibold">진행 중인 프로젝트</h3>
-            <span class="p-2 bg-indigo-50 text-indigo-500 rounded-lg text-xs"
-              >🔥</span
-            >
+            <span class="p-2 bg-gradient-to-r from-indigo-100 to-violet-100 text-indigo-600 text-xs">Projects</span>
           </div>
           <p class="text-4xl font-bold text-indigo-600">
             {{ dashboardData?.ongoingProjects || 0
@@ -43,13 +39,11 @@ import { HttpClient } from '@angular/common/http';
         </div>
 
         <div
-          class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition"
+          class="bg-white/90 p-6 shadow-sm border border-gray-100 hover:shadow-md transition"
         >
           <div class="flex justify-between items-start mb-4">
             <h3 class="text-gray-500 text-sm font-semibold">남은 할 일</h3>
-            <span class="p-2 bg-orange-50 text-orange-500 rounded-lg text-xs"
-              >⏳</span
-            >
+            <span class="p-2 bg-gradient-to-r from-orange-100 to-amber-100 text-orange-600 text-xs">Tasks</span>
           </div>
           <p class="text-4xl font-bold text-orange-500">
             {{ dashboardData?.pendingTasks || 0
@@ -60,7 +54,7 @@ import { HttpClient } from '@angular/common/http';
 
       <div
         *ngIf="!dashboardData"
-        class="flex flex-col items-center justify-center h-48 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 text-gray-400"
+        class="flex flex-col items-center justify-center h-48 bg-white border-2 border-dashed border-gray-200 text-gray-400"
       >
         <p>서버에서 데이터를 불러오고 있습니다...</p>
       </div>

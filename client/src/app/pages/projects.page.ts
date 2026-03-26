@@ -26,7 +26,7 @@ type Project = {
         </div>
         <button
           (click)="openCreate()"
-          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md transition"
+          class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white px-4 py-2 text-sm font-bold shadow-md transition cursor-pointer"
         >
           + 프로젝트 생성
         </button>
@@ -34,14 +34,14 @@ type Project = {
 
       <div
         *ngIf="projects.length === 0"
-        class="flex flex-col items-center justify-center h-48 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 text-gray-400"
+        class="flex flex-col items-center justify-center h-48 bg-white border-2 border-dashed border-gray-200 text-gray-400"
       >
         <p>아직 등록된 프로젝트가 없습니다.</p>
       </div>
 
       <div
         *ngIf="projects.length > 0"
-        class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+        class="bg-white/90 border border-gray-100 shadow-sm overflow-hidden"
       >
         <div
           class="grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 text-xs font-bold text-gray-500"
@@ -65,7 +65,7 @@ type Project = {
           </div>
           <div class="col-span-3">
             <span
-              class="inline-flex items-center px-2 py-1 rounded-lg text-xs font-bold"
+              class="inline-flex items-center px-2 py-1 text-xs font-bold"
               [ngClass]="statusClass(p.status)"
             >
               {{ p.status || 'ONGOING' }}
@@ -74,13 +74,13 @@ type Project = {
           <div class="col-span-2 flex justify-end gap-2">
             <button
               (click)="openEdit(p)"
-              class="px-2 py-1 text-xs font-bold rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700"
+              class="px-2 py-1 text-xs font-bold bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer"
             >
               수정
             </button>
             <button
               (click)="remove(p)"
-              class="px-2 py-1 text-xs font-bold rounded-lg bg-red-50 hover:bg-red-100 text-red-700"
+              class="px-2 py-1 text-xs font-bold bg-red-50 hover:bg-red-100 text-red-700 cursor-pointer"
             >
               삭제
             </button>
@@ -94,7 +94,7 @@ type Project = {
       *ngIf="isModalOpen"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity"
     >
-      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div class="bg-white shadow-2xl w-full max-w-md overflow-hidden border border-gray-200">
         <div
           class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center"
         >
@@ -103,7 +103,7 @@ type Project = {
           </h3>
           <button
             (click)="closeModal()"
-            class="text-gray-400 hover:text-red-500 font-bold text-xl"
+            class="text-gray-400 hover:text-red-500 font-bold text-xl cursor-pointer"
           >
             &times;
           </button>
@@ -116,7 +116,7 @@ type Project = {
             >
             <select
               [(ngModel)]="form.clientId"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+              class="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
             >
               <option [ngValue]="null" disabled>클라이언트를 선택해 주세요</option>
               <option *ngFor="let c of clients" [ngValue]="c.id">
@@ -136,7 +136,7 @@ type Project = {
               type="text"
               [(ngModel)]="form.title"
               placeholder="예: 씰룩 웹사이트 구축"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+              class="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 
@@ -144,7 +144,7 @@ type Project = {
             <label class="block text-sm font-bold text-gray-700 mb-1">상태</label>
             <select
               [(ngModel)]="form.status"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+              class="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
             >
               <option value="ONGOING">ONGOING</option>
               <option value="DONE">DONE</option>
@@ -153,16 +153,16 @@ type Project = {
           </div>
         </div>
 
-        <div class="px-6 py-4 bg-gray-50 flex justify-end gap-3 rounded-b-2xl">
+        <div class="px-6 py-4 bg-gray-50 flex justify-end gap-3">
           <button
             (click)="closeModal()"
-            class="px-4 py-2 text-sm font-bold text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 transition"
+            class="px-4 py-2 text-sm font-bold text-gray-600 bg-white border border-gray-300 hover:bg-gray-100 transition cursor-pointer"
           >
             취소
           </button>
           <button
             (click)="save()"
-            class="px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-md transition"
+            class="px-4 py-2 text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 shadow-md transition cursor-pointer"
           >
             저장하기
           </button>

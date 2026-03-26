@@ -23,7 +23,7 @@ type Client = {
         </div>
         <button
           (click)="openCreate()"
-          class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md transition"
+          class="bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 text-white px-4 py-2 text-sm font-bold shadow-md transition cursor-pointer"
         >
           + 클라이언트 추가
         </button>
@@ -31,14 +31,14 @@ type Client = {
 
       <div
         *ngIf="clients.length === 0"
-        class="flex flex-col items-center justify-center h-48 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 text-gray-400"
+        class="flex flex-col items-center justify-center h-48 bg-white border-2 border-dashed border-gray-200 text-gray-400"
       >
         <p>아직 등록된 클라이언트가 없습니다.</p>
       </div>
 
       <div
         *ngIf="clients.length > 0"
-        class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+        class="bg-white/90 border border-gray-100 shadow-sm overflow-hidden"
       >
         <div class="grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 text-xs font-bold text-gray-500">
           <div class="col-span-4">담당자</div>
@@ -57,13 +57,13 @@ type Client = {
           <div class="col-span-1 flex justify-end gap-2">
             <button
               (click)="openEdit(c)"
-              class="px-2 py-1 text-xs font-bold rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700"
+              class="px-2 py-1 text-xs font-bold bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer"
             >
               수정
             </button>
             <button
               (click)="remove(c)"
-              class="px-2 py-1 text-xs font-bold rounded-lg bg-red-50 hover:bg-red-100 text-red-700"
+              class="px-2 py-1 text-xs font-bold bg-red-50 hover:bg-red-100 text-red-700 cursor-pointer"
             >
               삭제
             </button>
@@ -77,7 +77,7 @@ type Client = {
       *ngIf="isModalOpen"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity"
     >
-      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div class="bg-white shadow-2xl w-full max-w-md overflow-hidden border border-gray-200">
         <div
           class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center"
         >
@@ -86,7 +86,7 @@ type Client = {
           </h3>
           <button
             (click)="closeModal()"
-            class="text-gray-400 hover:text-red-500 font-bold text-xl"
+            class="text-gray-400 hover:text-red-500 font-bold text-xl cursor-pointer"
           >
             &times;
           </button>
@@ -101,7 +101,7 @@ type Client = {
               type="text"
               [(ngModel)]="form.name"
               placeholder="예: 김원영"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+              class="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
             />
           </div>
           <div>
@@ -110,7 +110,7 @@ type Client = {
               type="text"
               [(ngModel)]="form.company"
               placeholder="예: 씰룩 코퍼레이션"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+              class="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
             />
           </div>
           <div>
@@ -119,21 +119,21 @@ type Client = {
               type="email"
               [(ngModel)]="form.email"
               placeholder="예: contact@selu.com"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+              class="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
             />
           </div>
         </div>
 
-        <div class="px-6 py-4 bg-gray-50 flex justify-end gap-3 rounded-b-2xl">
+        <div class="px-6 py-4 bg-gray-50 flex justify-end gap-3">
           <button
             (click)="closeModal()"
-            class="px-4 py-2 text-sm font-bold text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 transition"
+            class="px-4 py-2 text-sm font-bold text-gray-600 bg-white border border-gray-300 hover:bg-gray-100 transition cursor-pointer"
           >
             취소
           </button>
           <button
             (click)="save()"
-            class="px-4 py-2 text-sm font-bold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 shadow-md transition"
+            class="px-4 py-2 text-sm font-bold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 shadow-md transition cursor-pointer"
           >
             저장하기
           </button>
