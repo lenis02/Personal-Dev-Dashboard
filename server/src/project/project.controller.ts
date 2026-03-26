@@ -9,6 +9,7 @@ import {
   UseGuards,
   ParseIntPipe,
   Req,
+  Query,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -36,6 +37,27 @@ export class ProjectController {
   @Get()
   findAll(@CurrentUser('sub') userId: number) {
     return this.projectService.findAll(userId);
+  }
+
+  @Get('revenue/summary')
+  getRevenueSummary(
+    @CurrentUser('sub') userId: number,
+    @Query('months') months?: string
+  ) {
+    const parsedMonths = months ? Number(months) : 12;
+    return this.projectService.getRevenueSummary(userId, parsedMonths);
+  }
+
+  @Get('revenue/month')
+  getRevenueByMonth(
+    @CurrentUser('sub') userId: number,
+    @Query('month') month?: string
+  ) {
+    if (!month) {
+      const now = new Date();
+      month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    }
+    return this.projectService.getRevenueByMonth(userId, month);
   }
 
   // 프로젝트 수정

@@ -65,7 +65,10 @@ export class TaskService {
     if (updateTaskDto.isDone === true) {
       updatedTask.status = 'COMPLETED';
     } else if (updateTaskDto.isDone === false) {
-      updatedTask.status = 'PENDING';
+      const dueDate = updatedTask.dueDate ? new Date(updatedTask.dueDate) : null;
+      const isOverdue =
+        !!dueDate && !Number.isNaN(dueDate.getTime()) && dueDate.getTime() < Date.now();
+      updatedTask.status = isOverdue ? 'OVERDUE' : 'PENDING';
     }
 
     return await this.taskRepository.save(updatedTask);
