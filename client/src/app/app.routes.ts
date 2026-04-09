@@ -5,6 +5,7 @@ import { ClientsPage } from './pages/clients.page';
 import { ProjectsPage } from './pages/projects.page';
 import { TasksPage } from './pages/tasks.page';
 import { RevenuePage } from './pages/revenue.page';
+import { ProjectDocumentsPage } from './pages/project-documents.page';
 
 export const appRoutes: Route[] = [
   { path: 'login/success', component: AuthCallbackComponent },
@@ -14,4 +15,5 @@ export const appRoutes: Route[] = [
   { path: 'projects', component: ProjectsPage },
   { path: 'tasks', component: TasksPage },
   { path: 'revenue', component: RevenuePage },
+  { path: 'projects/:id/documents', component: ProjectDocumentsPage },
 ];

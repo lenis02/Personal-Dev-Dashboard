@@ -1,5 +1,11 @@
-import { Project } from 'server/src/project/entities/project.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Project } from '../../project/entities/project.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Task {
@@ -19,6 +25,6 @@ export class Task {
   dueDate?: Date;
 
   @ManyToOne(() => Project, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'projectId'})
+  @JoinColumn({ name: 'projectId' })
   project!: Project;
 }

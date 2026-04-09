@@ -16,6 +16,7 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { JwtAccessGuard } from '../auth/guard/jwt-access.guard';
 import { CurrentUser } from '../auth/decorator/current-user.decorator';
+import { UpdateProjectDocumentDto } from './dto/update-project-document.dto';
 
 @Controller('project')
 @UseGuards(JwtAccessGuard)
@@ -68,6 +69,29 @@ export class ProjectController {
     @CurrentUser('sub') userId: number
   ) {
     return this.projectService.update(id, updateProjectDto, userId);
+  }
+
+  @Get(':id/documents')
+  getDocuments(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser('sub') userId: number
+  ) {
+    return this.projectService.getDocuments(id, userId);
+  }
+
+  @Patch(':id/documents/:documentId')
+  updateDocument(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('documentId', ParseIntPipe) documentId: number,
+    @Body() updateProjectDocumentDto: UpdateProjectDocumentDto,
+    @CurrentUser('sub') userId: number
+  ) {
+    return this.projectService.updateDocument(
+      id,
+      documentId,
+      updateProjectDocumentDto,
+      userId
+    );
   }
 
   // 프로젝트 삭제

@@ -1,2 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3 {
+  font-weight: 700;
+  margin: 12px 0 8px;
+}
+
+.markdown-preview p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.markdown-preview ul {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+.markdown-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.markdown-preview th,
+.markdown-preview td {
+  border: 1px solid #d1d5db;
+  padding: 8px;
+  text-align: left;
+}
+
+.markdown-preview th {
+  background-color: #f9fafb;
+  font-weight: 700;
+}

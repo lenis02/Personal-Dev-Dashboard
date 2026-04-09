@@ -2,8 +2,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, Profile } from 'passport-kakao';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'server/src/user/entities/user.entity';
-import { UserService } from 'server/src/user/user.service';
+import { User } from '../../user/entities/user.entity';
+import { UserService } from '../../user/user.service';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
@@ -38,9 +38,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
       return done(null, user);
     } catch (error) {
       console.error('Kakao OAuth validate error:', error);
-      return done(error, false)
+      return done(error, false);
     }
-
-
   }
 }
